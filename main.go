@@ -9,24 +9,48 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+const (
+	port = ":1934"
+)
+
 func main() {
 
 	var r *gin.Engine = gin.Default()
-	r.GET(":key", checkKey)
+	r.GET("/", checkKey)
 
-	r.Run(":1919")
+	r.Run(port)
+}
+
+type publish struct {
+	app      string
+	flashver string
+	swfurl   string
+	tcurl    string
+	pageurl  string
+	call     string
+	name     string
+	livetype string
 }
 
 // keylistにあったらtrueを返す
 func checkKey(c *gin.Context) {
-	key := c.Param("key")
+	ld := publish{
+		c.Query("app"),
+		c.Query("flashver"),
+		c.Query("swfurl"),
+		c.Query("tcurl"),
+		c.Query("pageurl"),
+		c.Query("call"),
+		c.Query("name"),
+		c.Query("type"),
+	}
 
 	keylist := getAllowedKey()
 	fmt.Println(keylist)
 
 	var checkresult bool = false
 	for i := 0; i < len(keylist); i++ {
-		if key == keylist[i] {
+		if ld.name == keylist[i] {
 			checkresult = true
 			break
 		}
