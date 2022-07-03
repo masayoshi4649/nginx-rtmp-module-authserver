@@ -1,0 +1,12 @@
+# /etc/systemd/system/nginx-rtmp-module-authserver.service
+
+[Unit]
+Description=nginx-rtmp-module-authserver
+
+[Service]
+Type=simple
+ExecStart=/nginx-rtmp-module-authserver/main
+Restart=no
+
+[Install]
+WantedBy=multi-user.target

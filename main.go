@@ -66,7 +66,7 @@ func checkKey(c *gin.Context) {
 
 // 許可されるStreamkeyを配列で返す
 func getAllowedKey() []string {
-	file, err := os.Open("AllowedKey.csv")
+	file, err := os.Open("/nginx-rtmp-module-authserver/AllowedKey.csv")
 	if err != nil {
 		log.Fatal(err)
 	}
